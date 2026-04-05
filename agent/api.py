@@ -35,6 +35,14 @@ def create_inference_server(api_type: str):
         if not api_key and not auth_token:
             _require_env(["ANTHROPIC_API_KEY", "ANTHROPIC_AUTH_TOKEN"], api_type)
         return anthropic.Anthropic(api_key=api_key, auth_token=auth_token)
+    elif api_type in ("gemini", "google"):
+        api_key = os.environ.get("GEMINI_API_KEY")
+        if not api_key:
+            _require_env(["GEMINI_API_KEY"], api_type)
+        return openai.OpenAI(
+            api_key=_require_env(["GEMINI_API_KEY"], api_type),
+            base_url=os.environ.get("GEMINI_BASE_URL", "https://generativelanguage.googleapis.com/v1beta/openai/"),
+        )
     else:
         raise ValueError(f"Unsupported api_type: {api_type}")
 

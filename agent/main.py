@@ -183,7 +183,7 @@ if __name__ == "__main__":
 
     # Base Model Configs
     parser.add_argument(
-        "--api_type", type=str, default="openai", choices=["openai", "claude"]
+        "--api_type", type=str, default="openai", choices=["openai", "claude", "gemini"]
     )
     parser.add_argument("--model_name", type=str, default="gpt-5-mini")
     parser.add_argument("--temperature", type=float, default=0.6)
